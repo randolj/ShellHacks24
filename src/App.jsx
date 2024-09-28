@@ -4,7 +4,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-// import './App.css'
+import "./App.css";
 import Login from "./Components/Login/Login.jsx";
 import SignUp from "./Components/SignUp/SignUp.jsx";
 import LearningCenter from "./Components/LearningCenter/LearningCenter.jsx";
@@ -37,8 +37,8 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Budgeting />
-        <LearningCenter />
         <Finance />
+        <LearningCenter />
       </div>
     ),
   },
