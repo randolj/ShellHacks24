@@ -1,13 +1,13 @@
 import { useState } from "react";
 import {
   createBrowserRouter,
-  redirect,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
 // import './App.css'
 import Login from "./Components/Login/Login.jsx";
 import SignUp from "./Components/SignUp/SignUp.jsx";
+import LearningCenter from "./Components/LearningCenter/LearningCenter.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +31,12 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "",
-    element: redirect("/login"),
+    path: "/Home",
+    element: (
+      <div>
+        <LearningCenter />
+      </div>
+    ),
   },
 ]);
 
