@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 // import './App.css'
 import Login from "./Components/Login/Login.jsx";
 import SignUp from "./Components/SignUp/SignUp.jsx";
@@ -7,7 +12,7 @@ import SignUp from "./Components/SignUp/SignUp.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div></div>,
+    element: <Navigate to="/login" replace />,
   },
   {
     path: "/signup",
@@ -24,6 +29,10 @@ const router = createBrowserRouter([
         <Login />
       </div>
     ),
+  },
+  {
+    path: "",
+    element: redirect("/login"),
   },
 ]);
 

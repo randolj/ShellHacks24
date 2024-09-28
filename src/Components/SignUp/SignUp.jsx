@@ -37,7 +37,7 @@ const SignUp = () => {
       if (response.data.token) {
         localStorage.setItem("userToken", response.data.token);
         console.log("Signup success:", response.data.message);
-        navigate("/");
+        navigate("/Home");
       } else {
         const errorMessage = "Signup failed";
         setSignupFail(errorMessage);
