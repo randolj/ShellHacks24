@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -8,25 +9,70 @@ import {useNavigate} from "react-router-dom"
 
 const Login = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+});
+const [loginFail, setLoginFail] = useState('');
+
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+};
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post('http://localhost:8004/api/auth/login', formData);
+        if (response.data.message === 'Login successful!') {
+            localStorage.setItem('userToken', response.data.token);
+            console.log('Login success!');
+        } else {
+            setLoginFail("Login Failed: " + response.data.message);
+        }
+    } catch (error) {
+        const errorMessage = 'Login failed';
+        setLoginFail(errorMessage);
+    }
+};
 
   return (
     <div className="body">
       <img src={logo} alt="Capital One Logo" className="logo" />
-      {/* Centered form container with the text fields */}
       <Box
         className="form-box"
         component="form"
         sx={{ "& > :not(style)": { m: 1, width: "40ch" } }}
         noValidate
         autoComplete="off"
+        onSubmit={handleSubmit} 
       >
-        <TextField id="outlined-username" label="Username" variant="outlined" />
-        <TextField id="outlined-password" label="Password" variant="outlined" type="password" />
-      </Box>
-      <div className="redirect" onClick={() => navigate("/signup")}>
+        {loginFail && <div className="error-message">{loginFail}</div>}
+        <TextField
+          id="outlined-username" 
+          label="Username" 
+          variant="outlined" 
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          />
+        <TextField 
+          id="outlined-password" 
+          label="Password"
+          variant="outlined" 
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <Button className="redirect" 
+          onClick={() => {
+            navigate("/signup");
+          }}
+          type="button"
+        >
           <span>{"Don't have an account?"}</span>
-      </div>
-      {/* Sign In button positioned right below */}
+        </Button>
       <Button
         className="center-button"
         sx={{
@@ -37,9 +83,11 @@ const Login = () => {
           },
         }}
         variant="contained"
+        type="submit"
       >
         Sign In
       </Button>
+      </Box>
     </div>
   );
 }

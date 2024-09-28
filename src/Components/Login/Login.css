@@ -29,3 +29,8 @@
     font-size: 16px;
   }
   
+  .error-message {
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+    text-align: left; /* Align the text in the center of the form */
+  }
