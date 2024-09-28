@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# How to Run the App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This guide will walk you through running both the backend and frontend of the application.
 
-## Available Scripts
+## Prerequisites
+- Make sure you have **Node.js** and **npm** (Node Package Manager) installed. You can download them [here](https://nodejs.org/).
+- Install project dependencies using `npm install` both in the `backend` and root (frontend) directories.
 
-In the project directory, you can run:
+## Running the Backend
 
-### `npm start`
+1. **Navigate to the Backend Directory**:
+   - Open a terminal and navigate to the backend folder by running the following command:
+     ```sh
+     cd backend
+     ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Install Dependencies**:
+   - Before starting the backend, install the required dependencies:
+     ```sh
+     npm install
+     ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Start the Backend Server**:
+   - Start the backend by running:
+     ```sh
+     npm start
+     ```
+   - The backend should now be running, typically on `http://localhost:8004` (or the port specified in your backend configuration).
 
-### `npm test`
+## Running the Frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Open a New Terminal**:
+   - Open a new terminal window or tab.
 
-### `npm run build`
+2. **Navigate to the Root Directory**:
+   - Ensure you are in the root directory of the project. If not, navigate to the project root.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Install Dependencies**:
+   - Run the following command to install the necessary dependencies for the frontend:
+     ```sh
+     npm install
+     ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Start the Frontend**:
+   - Start the frontend application by running:
+     ```sh
+     npm start
+     ```
+   - The frontend should now be running, typically on `http://localhost:3000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Summary
+- The backend server needs to be running before the frontend, as the frontend makes API requests to it.
+- Open two terminal windows: 
+  - In the first terminal, navigate to `backend` and run the backend server.
+  - In the second terminal, navigate to the project root and run the frontend server.
 
-### `npm run eject`
+## Troubleshooting
+- **Port Conflicts**: Make sure that no other processes are using the backend or frontend ports (typically 8004 for backend and 3000 for frontend).
+- **Dependencies Not Installed**: If you face errors about missing packages, make sure you’ve run `npm install` in both the backend and frontend directories.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Useful Commands
+- **Stop Running Servers**: To stop either the backend or frontend server, press `CTRL + C` in the respective terminal.
+- **Installing Dependencies**: 
+  - Always run `npm install` before starting the servers to ensure all required dependencies are available.
