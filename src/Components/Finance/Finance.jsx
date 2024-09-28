@@ -6,9 +6,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import logo from "./Interactive_Brokers1.png";
-import logo1 from "./Charles_Schwab.png";
+import logo1 from "./charles-schwab.png";
 import logo2 from "./SAXO.png";
 import logo3 from "./etoro.png";
+import logo4 from "./exante.png";
 
 // Sample data for multiple cards
 const cardData = [
@@ -42,7 +43,7 @@ const cardData = [
   },
   {
     title: "Exante",
-    image: logo, // You can replace this with a different image for the third card
+    image: logo4, // You can replace this with a different image for the third card
     description:
       "Availability: Available to residents of Mexico, Brazil, and India.\nKey Features: Access to multiple global exchanges, with a focus on low-cost, multi-asset trading.\nMarkets: Over 50 global exchanges, including stocks, bonds, options, and futures.",
     link: "https://exante.eu/", // Add the URL for card 3
@@ -67,66 +68,125 @@ function Finance() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center", // Horizontally centers the card
-        alignItems: "center", // Vertically centers the card
-        height: "100vh", // Full height to center vertically
-      }}
-    >
-      <Card
-        sx={{
-          width: 350,
-          height: 550,
-          borderRadius: 2,
-          background:
-            "linear-gradient(135deg, rgb(68, 80, 94), rgb(77, 91, 104))",
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center", // Horizontally centers the card
+          alignItems: "center", // Vertically centers the card
+          height: "70vh", // Adjusted height to leave space for the header
         }}
       >
-        <CardMedia
-          component="img"
+        <Card
           sx={{
-            width: "50%",
-            height: "60%",
-            objectFit: "contain",
-            display: "block",
-            margin: "0 auto", // Centers the image horizontally
-            maxHeight: 200, // Adjust max height to avoid overflowing
-            padding: "10px",
+            width: 370,
+            height: 600,
+            borderRadius: 3,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between", // This will keep the image at the top and move the content and actions down
+            background:
+              "linear-gradient(180deg, #97ccee , rgba(0, 73, 119, 0.9) )",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+            color: "white",
+            padding: "20px",
+            textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)", // Makes text stand out
           }}
-          image={cardData[currentIndex].image}
-          title={cardData[currentIndex].title}
-        />
-        <CardContent>
+        >
           <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            color="white"
-            fontWeight="bold"
+            variant="h4"
+            component="h1"
+            sx={{
+              color: "white", // Keep this if it matches your theme
+              fontFamily: "Noto Sans", // Ensure the font matches
+              fontWeight: 600, // Match the font weight with Budgeting's BudgetHeader
+              fontSize: "20px", // Set to the same font size as the BudgetHeader
+              marginBottom: "10px",
+              textAlign: "left",
+              textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)", // Keep this if you want the text shadow
+            }}
           >
-            {cardData[currentIndex].title}
+            Investment Corner
           </Typography>
-          <Typography
-            variant="body2"
-            sx={{ color: "white", whiteSpace: "pre-line" }}
-          >
-            {cardData[currentIndex].description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={handlePrev}>
-            Previous
-          </Button>
-          <Button size="small" onClick={handleNext}>
-            Next
-          </Button>
-          <Button size="small" onClick={handleLearnMore}>
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
+
+          <CardMedia
+            component="img"
+            sx={{
+              width: "75%",
+              height: "35%",
+              objectFit: "contain",
+              display: "block",
+              margin: "0 auto", // Centers the image horizontally
+              maxHeight: 200, // Adjust max height to avoid overflowing
+              marginBottom: "10px",
+            }}
+            image={cardData[currentIndex].image}
+            title={cardData[currentIndex].title}
+          />
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
+              color="white"
+              fontWeight="bold"
+              sx={{ fontFamily: "Noto Sans", marginBottom: "5px" }}
+            >
+              {cardData[currentIndex].title}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "white",
+                whiteSpace: "pre-line",
+                fontFamily: "Noto Sans",
+                fontWeight: 500,
+              }}
+            >
+              {cardData[currentIndex].description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button
+              size="small"
+              onClick={handlePrev}
+              sx={{
+                border: "2px solid white",
+                borderColor: "white",
+                backgroundColor: "rgba(0, 73, 119, 0.9)",
+                color: "white",
+                fontFamily: "Noto Sans",
+              }}
+            >
+              Previous
+            </Button>
+            <Button
+              size="small"
+              onClick={handleNext}
+              sx={{
+                border: "2px solid white",
+                borderColor: "white",
+                backgroundColor: "rgba(0, 73, 119, 0.9)",
+                color: "white",
+              }}
+            >
+              Next
+            </Button>
+            <Button
+              size="small"
+              onClick={handleLearnMore}
+              sx={{
+                border: "2px solid white",
+                borderColor: "white",
+                backgroundColor: "rgba(0, 73, 119, 0.9)",
+                color: "white",
+              }}
+            >
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
+      </div>
     </div>
   );
 }
