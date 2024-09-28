@@ -21,8 +21,12 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CR
         console.log(`Connected to the SQLite database at ${dbPath}`);
         db.run(`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
       username TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
+      budget INTEGER,
+      language STRING DEFAULT 'en',
+      currency STRING DEFAULT 'usd'
     )`, (err) => {
             if (err) {
                 console.log('Error when creating the users table:', err);

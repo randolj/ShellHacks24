@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,6 +10,7 @@ import LearningCenter from "./Components/LearningCenter/LearningCenter.jsx";
 import Budgeting from "./Components/Budgeting/Budgeting.jsx";
 import Finance from "./Components/Finance/Finance.jsx";
 import Pie from "./Components/Pie/Pie.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,17 +37,18 @@ const router = createBrowserRouter([
     path: "/Home",
     element: (
       <div>
-        <Budgeting />
-        <Pie/>
-        <Finance />
-        <LearningCenter />
+        <ProtectedRoute>
+          <Budgeting />
+          <Pie />
+          <Finance />
+          <LearningCenter />
+        </ProtectedRoute>
       </div>
     ),
   },
 ]);
 
 function App() {
-  const [data, setData] = useState(null);
   return <RouterProvider router={router} />;
 }
 
