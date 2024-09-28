@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import logo from "../Capital_One_logo.png";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./SignUp.css";
 
-const Login = () => {
+const SignUp = () => {
+  const [signupFail, setSignupFail] = useState("");
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    retypePassword: "",
   });
-  const [loginFail, setLoginFail] = useState("");
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -22,21 +23,28 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.retypePassword) {
+      const errorMessage = "Signup failed";
+      setSignupFail(errorMessage);
+      return;
+    }
+
     try {
       const response = await axios.post(
-        "http://localhost:8004/api/auth/login",
+        "http://localhost:8004/api/auth/signup",
         formData
       );
-      if (response.data.message === "Login successful!") {
+      if (response.data.token) {
         localStorage.setItem("userToken", response.data.token);
-        console.log("Login success!");
+        console.log("Signup success:", response.data.message);
         navigate("/Home");
       } else {
-        setLoginFail("Login Failed: " + response.data.message);
+        const errorMessage = "Signup failed";
+        setSignupFail(errorMessage);
       }
     } catch (error) {
-      const errorMessage = "Login failed";
-      setLoginFail(errorMessage);
+      const errorMessage = "Signup failed";
+      setSignupFail(errorMessage);
     }
   };
 
@@ -51,7 +59,7 @@ const Login = () => {
         autoComplete="off"
         onSubmit={handleSubmit}
       >
-        {loginFail && <div className="error-message">{loginFail}</div>}
+        {signupFail && <div className="error-message">{signupFail}</div>}
         <TextField
           id="outlined-username"
           label="Username"
@@ -69,14 +77,23 @@ const Login = () => {
           value={formData.password}
           onChange={handleChange}
         />
+        <TextField
+          id="outlined-password"
+          label="Retype Password"
+          variant="outlined"
+          type="password"
+          name="retypePassword"
+          value={formData.retypePassword}
+          onChange={handleChange}
+        />
         <Button
           className="redirect"
           onClick={() => {
-            navigate("/signup");
+            navigate("/login");
           }}
           type="button"
         >
-          <span>{"Don't have an account?"}</span>
+          <span>{"Already have an account?"}</span>
         </Button>
         <Button
           className="center-button"
@@ -90,11 +107,11 @@ const Login = () => {
           variant="contained"
           type="submit"
         >
-          Sign In
+          Sign Up
         </Button>
       </Box>
     </div>
   );
 };
 
-export default Login;
+export default SignUp;
