@@ -68,10 +68,11 @@ function Finance() {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
+    <div style={{ textAlign: "center", padding: "5px" }}>
       <div
         style={{
           display: "flex",
+          width: "100%",
           justifyContent: "center", // Horizontally centers the card
           alignItems: "center", // Vertically centers the card
           height: "70vh", // Adjusted height to leave space for the header
@@ -79,9 +80,9 @@ function Finance() {
       >
         <Card
           sx={{
-            width: 370,
-            height: 600,
-            borderRadius: 3,
+            width: "380px",
+            height: "600px",
+            borderRadius: "5px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between", // This will keep the image at the top and move the content and actions down
@@ -100,7 +101,7 @@ function Finance() {
               color: "white", // Keep this if it matches your theme
               fontFamily: "Noto Sans", // Ensure the font matches
               fontWeight: 600, // Match the font weight with Budgeting's BudgetHeader
-              fontSize: "20px", // Set to the same font size as the BudgetHeader
+              fontSize: "25px", // Set to the same font size as the BudgetHeader
               marginBottom: "10px",
               textAlign: "left",
               textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)", // Keep this if you want the text shadow

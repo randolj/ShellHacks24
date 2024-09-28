@@ -24,48 +24,50 @@ const LearningCenter = () => {
   };
 
   return (
-    <div className="container">
-      <div className="title">Learning Center</div>
-      {cardData.map((card) => (
-        <div
-          key={card.id}
-          className={`card card-${card.id}`}
-          onClick={() => handleCardClick(card)}
-        >
-          <div className="card-content">{card.title}</div>
-        </div>
-      ))}
-      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-        {selectedCard && (
-          <>
-            <DialogTitle>
-              {selectedCard.title}
-              <IconButton
-                aria-label="close"
-                onClick={handleClose}
-                sx={{
-                  position: "absolute",
-                  right: 8,
-                  top: 8,
-                  color: (theme) => theme.palette.grey[500],
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent>
-              <div className="modal-content">
-                <img
-                  src={selectedCard.image}
-                  alt={selectedCard.title}
-                  className="modal-image"
-                />
-                <p>{selectedCard.description}</p>
-              </div>
-            </DialogContent>
-          </>
-        )}
-      </Dialog>
+    <div className="wrapper">
+      <div className="container">
+        <div className="title">Learning Center</div>
+        {cardData.map((card) => (
+          <div
+            key={card.id}
+            className={`card card-${card.id}`}
+            onClick={() => handleCardClick(card)}
+          >
+            <div className="card-content">{card.title}</div>
+          </div>
+        ))}
+        <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+          {selectedCard && (
+            <>
+              <DialogTitle>
+                {selectedCard.title}
+                <IconButton
+                  aria-label="close"
+                  onClick={handleClose}
+                  sx={{
+                    position: "absolute",
+                    right: 8,
+                    top: 8,
+                    color: (theme) => theme.palette.grey[500],
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </DialogTitle>
+              <DialogContent>
+                <div className="modal-content">
+                  <img
+                    src={selectedCard.image}
+                    alt={selectedCard.title}
+                    className="modal-image"
+                  />
+                  <p>{selectedCard.description}</p>
+                </div>
+              </DialogContent>
+            </>
+          )}
+        </Dialog>
+      </div>
     </div>
   );
 };
