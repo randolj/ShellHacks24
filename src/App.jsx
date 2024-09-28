@@ -9,6 +9,7 @@ import Login from "./Components/Login/Login.jsx";
 import SignUp from "./Components/SignUp/SignUp.jsx";
 import LearningCenter from "./Components/LearningCenter/LearningCenter.jsx";
 import Budgeting from "./Components/Budgeting/Budgeting.jsx";
+import Finance from "./Components/Finance/Finance.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
       <div>
         <Budgeting />
         <LearningCenter />
+        <Finance />
       </div>
     ),
   },
