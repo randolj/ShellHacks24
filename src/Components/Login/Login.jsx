@@ -30,6 +30,7 @@ const Login = () => {
       if (response.data.message === "Login successful!") {
         localStorage.setItem("userToken", response.data.token);
         console.log("Login success!");
+        navigate("/");
       } else {
         setLoginFail("Login Failed: " + response.data.message);
       }
