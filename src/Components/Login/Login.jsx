@@ -1,40 +1,43 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import logo from "../Capital_One_logo.png";
 import "./Login.css";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-});
-const [loginFail, setLoginFail] = useState('');
+    username: "",
+    password: "",
+  });
+  const [loginFail, setLoginFail] = useState("");
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-};
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8004/api/auth/login', formData);
-        if (response.data.message === 'Login successful!') {
-            localStorage.setItem('userToken', response.data.token);
-            console.log('Login success!');
-        } else {
-            setLoginFail("Login Failed: " + response.data.message);
-        }
+      const response = await axios.post(
+        "http://localhost:8004/api/auth/login",
+        formData
+      );
+      if (response.data.message === "Login successful!") {
+        localStorage.setItem("userToken", response.data.token);
+        console.log("Login success!");
+      } else {
+        setLoginFail("Login Failed: " + response.data.message);
+      }
     } catch (error) {
-        const errorMessage = 'Login failed';
-        setLoginFail(errorMessage);
+      const errorMessage = "Login failed";
+      setLoginFail(errorMessage);
     }
-};
+  };
 
   return (
     <div className="body">
@@ -45,27 +48,28 @@ const handleSubmit = async (e) => {
         sx={{ "& > :not(style)": { m: 1, width: "40ch" } }}
         noValidate
         autoComplete="off"
-        onSubmit={handleSubmit} 
+        onSubmit={handleSubmit}
       >
         {loginFail && <div className="error-message">{loginFail}</div>}
         <TextField
-          id="outlined-username" 
-          label="Username" 
-          variant="outlined" 
+          id="outlined-username"
+          label="Username"
+          variant="outlined"
           name="username"
           value={formData.username}
           onChange={handleChange}
-          />
-        <TextField 
-          id="outlined-password" 
+        />
+        <TextField
+          id="outlined-password"
           label="Password"
-          variant="outlined" 
+          variant="outlined"
           type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
         />
-        <Button className="redirect" 
+        <Button
+          className="redirect"
           onClick={() => {
             navigate("/signup");
           }}
@@ -73,23 +77,23 @@ const handleSubmit = async (e) => {
         >
           <span>{"Don't have an account?"}</span>
         </Button>
-      <Button
-        className="center-button"
-        sx={{
-          backgroundColor: "rgb(71,140,209)",
-          color: "white",
-          "&:hover": {
-            backgroundColor: "rgb(0,72,120)",
-          },
-        }}
-        variant="contained"
-        type="submit"
-      >
-        Sign In
-      </Button>
+        <Button
+          className="center-button"
+          sx={{
+            backgroundColor: "rgb(71,140,209)",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "rgb(0,72,120)",
+            },
+          }}
+          variant="contained"
+          type="submit"
+        >
+          Sign In
+        </Button>
       </Box>
     </div>
   );
-}
+};
 
 export default Login;
