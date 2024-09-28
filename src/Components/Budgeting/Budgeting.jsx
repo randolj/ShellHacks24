@@ -1,7 +1,6 @@
 import React from "react";
 import "./Budgeting.css";
 import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import TranslateIcon from "@mui/icons-material/Translate";
 import Box from "@mui/material/Box";
@@ -15,11 +14,24 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Gauge, gaugeClasses } from "@mui/x-charts/Gauge";
 import logo from "../Capital_One_logo.png";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Budgeting() {
+  const location = useLocation();
+
   const [open, setOpen] = React.useState(false);
   const [Language, setLanguage] = React.useState("");
   const [Currency, setCurrency] = React.useState("");
+
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    // Check if state exists and if yes, update the budgetValue and expenses
+    if (location.state) {
+      setUserName(location.state.name);
+    }
+  }, [location.state]);
 
   const handleChange = (event) => {
     setLanguage(Number(event.target.value) || "");
@@ -94,14 +106,14 @@ function Budgeting() {
             <Button onClick={handleClose}>Ok</Button>
           </DialogActions>
         </Dialog>
-        <img className="logo" src={logo} alt=""/>
+        <img className="logo" src={logo} alt="" />
       </div>
-  
+
       <div className="BudgetContainer">
         <div className="BudgetCard">
           <div className="BudgetContent">
             <div className="BudgetHeader">
-              <p style={{ fontWeight: "500" }}>Good Afternoon Juan,</p>
+              <p style={{ fontWeight: "500" }}>Good Afternoon {userName},</p>
               <p>September summary</p>
             </div>
             <div className="BudgetGauge">
@@ -125,11 +137,8 @@ function Budgeting() {
                   },
                   [`& .${gaugeClasses.valueArc}`]: {
                     fill: "#d03027",
-                    
                   },
-                  [`& .${gaugeClasses.referenceArc}`]: {
-
-                  },
+                  [`& .${gaugeClasses.referenceArc}`]: {},
                 }}
                 text={({ value, valueMax }) => `$${value}/${valueMax}`}
               />

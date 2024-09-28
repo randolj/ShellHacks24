@@ -20,6 +20,26 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const fetchUserData = async (token) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8004/api/auth/user-data",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("Fetched user data:", response.data);
+      navigate("/Home", {
+        state: {
+          name: response.data.name,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      setLoginFail("Failed to load user data");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -30,7 +50,7 @@ const Login = () => {
       if (response.data.message === "Login successful!") {
         localStorage.setItem("userToken", response.data.token);
         console.log("Login success!");
-        navigate("/Home");
+        fetchUserData(response.data.token);
       } else {
         setLoginFail("Login Failed: " + response.data.message);
       }

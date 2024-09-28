@@ -12,6 +12,7 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    name: "",
     username: "",
     password: "",
     retypePassword: "",
@@ -60,6 +61,14 @@ const SignUp = () => {
         onSubmit={handleSubmit}
       >
         {signupFail && <div className="error-message">{signupFail}</div>}
+        <TextField
+          id="name"
+          label="Name"
+          variant="outlined"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
         <TextField
           id="outlined-username"
           label="Username"

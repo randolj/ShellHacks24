@@ -13,7 +13,7 @@ function generateToken(user) {
 
 // Register Route
 router.post('/signup', async (req, res) => {
-    const { username, password } = req.body;
+    const { name, username, password } = req.body;
 
     try {
         // Check if the user already exists
@@ -29,10 +29,9 @@ router.post('/signup', async (req, res) => {
             // Hash password and insert the user
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
-            console.log(password, hashedPassword)
 
-            const sql = `INSERT INTO users (username, password) VALUES (?, ?)`;
-            db.run(sql, [username, hashedPassword], function (err) {
+            const sql = `INSERT INTO users (name, username, password) VALUES (?, ?, ?)`;
+            db.run(sql, [name, username, hashedPassword], function (err) {
                 if (err) {
                     return res.status(400).send({ error: err.message });
                 }
@@ -71,5 +70,34 @@ router.post('/login', async (req, res) => {
         res.status(200).send({ message: 'Login successful!', token: token });
     });
 });
+
+router.get('/user-data', (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).send({ message: 'No token provided' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.id;
+
+        const sql = `SELECT name FROM users WHERE id = ?`;
+        db.get(sql, [userId], (err, row) => {
+            if (err) {
+                return res.status(500).send({ error: err.message });
+            }
+            if (row) {
+                res.json({
+                    name: row.name,
+                });
+            } else {
+                res.status(404).send({ message: 'User not found' });
+            }
+        });
+    } catch (err) {
+        return res.status(401).send({ message: 'Invalid or expired token' });
+    }
+});
+
 
 module.exports = router;
