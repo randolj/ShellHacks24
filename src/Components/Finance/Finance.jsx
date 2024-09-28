@@ -10,8 +10,6 @@ import logo1 from "./Charles_Schwab.png";
 import logo2 from "./SAXO.png";
 import logo3 from "./etoro.png";
 
-import "./Finance.css";
-
 // Sample data for multiple cards
 const cardData = [
   {

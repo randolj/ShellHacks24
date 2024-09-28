@@ -14,6 +14,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Gauge, gaugeClasses } from "@mui/x-charts/Gauge";
+import logo from "../Capital_One_logo.png";
 
 function Budgeting() {
   const [open, setOpen] = React.useState(false);
@@ -38,6 +39,7 @@ function Budgeting() {
     <div>
       <div className="headerBanner">
         <Button
+          className="transButton"
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -92,28 +94,28 @@ function Budgeting() {
             <Button onClick={handleClose}>Ok</Button>
           </DialogActions>
         </Dialog>
+        <img className="logo" src={logo} alt=""/>
       </div>
-      <div className="Introduction">
-        Good Afternoon Juan,
-      </div>
+  
       <div className="BudgetContainer">
         <div className="BudgetCard">
           <div className="BudgetContent">
             <div className="BudgetHeader">
-              <p>July Spending</p>
+              <p style={{ fontWeight: "500" }}>Good Afternoon Juan,</p>
+              <p>September summary</p>
             </div>
-            <div>
+            <div className="BudgetGauge">
               <Gauge
                 className="test"
                 width={250}
                 height={170}
-                value={690}
+                value={690.46}
                 valueMax={1000}
                 startAngle={-110}
                 endAngle={110}
                 sx={{
                   [`& .${gaugeClasses.valueText}`]: {
-                    fontSize: 24,
+                    fontSize: 23,
                     fontFamily: "Poppins",
                     fontWeight: 500,
                     transform: "translate(0px, -14px)",
@@ -129,14 +131,13 @@ function Budgeting() {
 
                   },
                 }}
-                text={({ value, valueMax }) => `$${value} / ${valueMax}`}
+                text={({ value, valueMax }) => `$${value}/${valueMax}`}
               />
             </div>
             <div className="ButtonSection">
               <div className="BudgetButton">
-                <div>Edit Budget</div>
+                <div>Manage Budget</div>
               </div>
-              <div className="BudgetButton">Change Goal</div>
             </div>
           </div>
         </div>

@@ -1,0 +1,36 @@
+.PieContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 0px;
+    background: rgb(234, 234, 234);
+}
+.PieHeading{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color:rgb(79, 79, 79);
+    font-family: Noto Sans;
+    font-weight: 400;
+    font-size: 20px;
+}
+.PieContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    width: 380px;
+    height: 250px;
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 60px;
+}
+.PieTitle{
+    color:rgb(14, 11, 11);
+    font-family: Noto Sans;
+    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
