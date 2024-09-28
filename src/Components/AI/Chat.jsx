@@ -10,7 +10,7 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import "./Chat.css"
 
-const API_KEY = "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";
+const API_KEY = process.env.CHAT;
 const systemMessage = {
   role: "system",
   content:
