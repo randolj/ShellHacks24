@@ -146,7 +146,13 @@ function Finance() {
               {cardData[currentIndex].description}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions
+            sx={{
+              display: "flex",
+              justifyContent: "center", // Centers the buttons horizontally
+              gap: 2, // Adds space between buttons
+            }}
+          >
             <Button
               size="small"
               onClick={handlePrev}
@@ -162,18 +168,6 @@ function Finance() {
             </Button>
             <Button
               size="small"
-              onClick={handleNext}
-              sx={{
-                border: "2px solid white",
-                borderColor: "white",
-                backgroundColor: "rgba(0, 73, 119, 0.9)",
-                color: "white",
-              }}
-            >
-              Next
-            </Button>
-            <Button
-              size="small"
               onClick={handleLearnMore}
               sx={{
                 border: "2px solid white",
@@ -183,6 +177,18 @@ function Finance() {
               }}
             >
               Learn More
+            </Button>
+            <Button
+              size="small"
+              onClick={handleNext}
+              sx={{
+                border: "2px solid white",
+                borderColor: "white",
+                backgroundColor: "rgba(0, 73, 119, 0.9)",
+                color: "white",
+              }}
+            >
+              Next
             </Button>
           </CardActions>
         </Card>
