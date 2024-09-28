@@ -1,34 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LearningCenter.css";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
+// Import card data from the separate file
+import cardData from "./cardData";
 
 const LearningCenter = () => {
+  const [open, setOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedCard(null);
+  };
+
   return (
     <div className="container">
       <div className="title">Learning Center</div>
-      <div className="card card-1">
-        <div className="card-content">Understanding Budgeting</div>
-      </div>
-      <div className="card card-2">
-        <div className="card-content">Banking & Savings</div>
-      </div>
-      <div className="card card-3">
-        <div className="card-content">Credit Management</div>
-      </div>
-      <div className="card card-4">
-        <div className="card-content">Debt Management</div>
-      </div>
-      <div className="card card-5">
-        <div className="card-content">Financial Assistance</div>
-      </div>
-      <div className="card card-6">
-        <div className="card-content">Small Business</div>
-      </div>
-      <div className="card card-7">
-        <div className="card-content">Financial Rights & Advocacy</div>
-      </div>
-      <div className="card card-8">
-        <div className="card-content">Community</div>
-      </div>
+      {cardData.map((card) => (
+        <div
+          key={card.id}
+          className={`card card-${card.id}`}
+          onClick={() => handleCardClick(card)}
+        >
+          <div className="card-content">{card.title}</div>
+        </div>
+      ))}
+      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+        {selectedCard && (
+          <>
+            <DialogTitle>
+              {selectedCard.title}
+              <IconButton
+                aria-label="close"
+                onClick={handleClose}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
+            <DialogContent>
+              <div className="modal-content">
+                <img
+                  src={selectedCard.image}
+                  alt={selectedCard.title}
+                  className="modal-image"
+                />
+                <p>{selectedCard.description}</p>
+              </div>
+            </DialogContent>
+          </>
+        )}
+      </Dialog>
     </div>
   );
 };
