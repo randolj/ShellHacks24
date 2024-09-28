@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import logo from "../Capital_One_logo.png";
-import "./Login.css";
 import {useNavigate} from "react-router-dom"
+import "./SignUp.css";
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,11 +22,11 @@ const Login = () => {
       >
         <TextField id="outlined-username" label="Username" variant="outlined" />
         <TextField id="outlined-password" label="Password" variant="outlined" type="password" />
+        <TextField id="outlined-password" label="Repeat Password" variant="outlined" type="password" />
       </Box>
-      <div className="redirect" onClick={() => navigate("/signup")}>
-          <span>{"Don't have an account?"}</span>
+      <div className="redirect" onClick={() => navigate("/login")}>
+          <span>{"Already have an account?"}</span>
       </div>
-      {/* Sign In button positioned right below */}
       <Button
         className="center-button"
         sx={{
@@ -38,10 +38,10 @@ const Login = () => {
         }}
         variant="contained"
       >
-        Sign In
+        Sign Up
       </Button>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;
