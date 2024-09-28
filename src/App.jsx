@@ -10,7 +10,11 @@ import LearningCenter from "./Components/LearningCenter/LearningCenter.jsx";
 import Budgeting from "./Components/Budgeting/Budgeting.jsx";
 import Finance from "./Components/Finance/Finance.jsx";
 import Pie from "./Components/Pie/Pie.jsx";
+<<<<<<< Updated upstream
 import ProtectedRoute from "./ProtectedRoute.jsx";
+=======
+import Chat from "./Components/AI/Chat.jsx";
+>>>>>>> Stashed changes
 
 const router = createBrowserRouter([
   {
@@ -37,12 +41,20 @@ const router = createBrowserRouter([
     path: "/Home",
     element: (
       <div>
+<<<<<<< Updated upstream
         <ProtectedRoute>
           <Budgeting />
           <Pie />
           <Finance />
           <LearningCenter />
         </ProtectedRoute>
+=======
+        <Budgeting />
+        <Pie/>
+        <Finance />
+        <LearningCenter />
+        <Chat />
+>>>>>>> Stashed changes
       </div>
     ),
   },
