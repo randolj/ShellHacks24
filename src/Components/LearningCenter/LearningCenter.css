@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Noto Sans;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    border-radius: 2px;
+    border-color: black;
+    border: solid;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 10px;
+    height: 100px;
+}
