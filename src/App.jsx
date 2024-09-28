@@ -8,6 +8,7 @@ import {
 import Login from "./Components/Login/Login.jsx";
 import SignUp from "./Components/SignUp/SignUp.jsx";
 import LearningCenter from "./Components/LearningCenter/LearningCenter.jsx";
+import Budgeting from "./Components/Budgeting/Budgeting.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
     path: "/Home",
     element: (
       <div>
+        <Budgeting />
         <LearningCenter />
       </div>
     ),
