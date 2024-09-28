@@ -79,7 +79,7 @@ const SignUp = () => {
         />
         <TextField
           id="outlined-password"
-          label="Repeat Password"
+          label="Retype Password"
           variant="outlined"
           type="password"
           name="retypePassword"
