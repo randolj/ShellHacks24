@@ -50,7 +50,7 @@ const SignUp = () => {
 
   return (
     <div className="body">
-      <img src={logo} alt="Capital One Logo" className="logo" />
+      <img src={logo} alt="Capital One Logo" className="login-logo" />
       <Box
         className="form-box"
         component="form"
