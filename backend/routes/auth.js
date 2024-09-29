@@ -8,7 +8,22 @@ const router = express.Router();
 
 // Function to generate a JWT token
 function generateToken(user) {
-    return jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ id: user.id }, "temp", { expiresIn: '1h' });
+}
+
+function authenticateToken(req, res, next) {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).send({ message: 'No token provided' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; // Attach user info to the request object
+        next(); // Proceed to the next middleware or route handler
+    } catch (err) {
+        return res.status(401).send({ message: 'Invalid or expired token' });
+    }
 }
 
 // Register Route
@@ -98,6 +113,26 @@ router.get('/user-data', (req, res) => {
     } catch (err) {
         return res.status(401).send({ message: 'Invalid or expired token' });
     }
+});
+
+router.post('/update-budget', authenticateToken, (req, res) => {
+    const { budget } = req.body;
+
+    // Validate the budget value
+    if (typeof budget !== 'number' || budget < 0) {
+        return res.status(400).send({ message: 'Invalid budget value' });
+    }
+
+    const userId = req.user.id;
+    const sql = `UPDATE users SET budget = ? WHERE id = ?`;
+
+    db.run(sql, [budget, userId], function (err) {
+        if (err) {
+            console.error("Error updating budget:", err);
+            return res.status(500).send({ error: 'Failed to update budget' });
+        }
+        res.send({ message: 'Budget updated successfully' });
+    });
 });
 
 

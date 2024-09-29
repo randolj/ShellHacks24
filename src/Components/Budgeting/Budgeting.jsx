@@ -18,8 +18,12 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Budgeting() {
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [open, setOpen] = React.useState(false);
@@ -30,6 +34,40 @@ function Budgeting() {
 
   const [userName, setUserName] = useState("");
   const [budget, setBudget] = useState("");
+  const [newBudget, setNewBudget] = useState(""); // Step 1: State to track new budget input
+
+  useEffect(() => {
+    // Retrieve token from localStorage
+    const token = localStorage.getItem("userToken");
+
+    // If token exists, fetch the latest budget from the backend
+    if (token) {
+      axios
+        .get("http://localhost:8004/api/auth/user-data", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUserName(response.data.name);
+          setBudget(response.data.budget);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user data:", error);
+          if (error.response && error.response.status === 401) {
+            alert("Session expired or invalid token. Please log in again.");
+            navigate("/login");
+          }
+        });
+    } else if (location.state) {
+      // If no token, but location state exists, use it (e.g., user just logged in)
+      setUserName(location.state.name);
+      setBudget(location.state.budget);
+    } else {
+      // If no state and no token, redirect to login
+      navigate("/login");
+    }
+  }, [location.state, navigate]);
 
   useEffect(() => {
     // Check if state exists and if yes, update the budgetValue and expenses
@@ -37,7 +75,6 @@ function Budgeting() {
       setUserName(location.state.name);
       setBudget(location.state.budget);
     }
-    console.log(budget);
   }, [location.state]);
 
   const handleChange = (event) => {
@@ -60,6 +97,43 @@ function Budgeting() {
 
   const handleManageBudgetClose = () => {
     setManageBudgetOpen(false);
+  };
+
+  const handleManageBudgetSubmit = () => {
+    setManageBudgetOpen(false);
+    const token = localStorage.getItem("userToken");
+
+    axios
+      .post(
+        "http://localhost:8004/api/auth/update-budget",
+        {
+          budget: parseInt(newBudget),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Correctly setting the authorization header
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data.message);
+        setBudget(newBudget); // Update state only on successful API response
+      })
+      .catch((error) => {
+        console.error("Failed to update budget:", error);
+        if (error.response && error.response.status === 401) {
+          alert("Session expired or invalid token. Please log in again.");
+          navigate("/login");
+        }
+      });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+
+    // Optionally, clear other user data or reset state as needed
+    // Redirect to login page
+    navigate("/login");
   };
 
   return (
@@ -122,8 +196,10 @@ function Budgeting() {
           </DialogActions>
         </Dialog>
         <img className="logo" src={logo} alt="" />
+        <div className="logoutButton" onClick={handleLogout}>
+          <LogoutIcon />
+        </div>
       </div>
-
       <div className="BudgetContainer">
         <div className="BudgetCard">
           <div className="BudgetContent">
@@ -167,8 +243,16 @@ function Budgeting() {
             </div>
           </div>
         </div>
-        {/* Manage Budget Modal */}
-        <Dialog open={manageBudgetOpen} onClose={handleManageBudgetClose}>
+        <Dialog
+          open={manageBudgetOpen}
+          onClose={handleManageBudgetClose}
+          PaperProps={{
+            sx: {
+              display: "flex",
+              flexDirection: "column",
+            },
+          }}
+        >
           <DialogTitle>
             Manage Budget
             <IconButton
@@ -185,8 +269,34 @@ function Budgeting() {
             </IconButton>
           </DialogTitle>
           <DialogContent>
-            <p>Here you can manage your budget details.</p>
-            {/* Add more budget management content here */}
+            <div className="budgetInput">
+              <input
+                id="budget"
+                placeholder="New Budget"
+                name="budget"
+                className="budgetIn"
+                value={newBudget ? `$${newBudget}` : ""}
+                onChange={(e) => {
+                  const valueWithoutDollar = e.target.value.replace(/^\$/, "");
+                  setNewBudget(valueWithoutDollar);
+                }}
+              />
+              <Button
+                className="center-button"
+                sx={{
+                  backgroundColor: "rgb(71,140,209)",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "rgb(0,72,120)",
+                  },
+                }}
+                variant="contained"
+                type="submit"
+                onClick={handleManageBudgetSubmit}
+              >
+                Submit
+              </Button>
+            </div>
           </DialogContent>
         </Dialog>
       </div>
