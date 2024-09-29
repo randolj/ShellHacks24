@@ -25,7 +25,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.retypePassword) {
-      const errorMessage = "Signup failed";
+      const errorMessage = "Passwords must match!";
       setSignupFail(errorMessage);
       return;
     }

@@ -24,7 +24,7 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CR
       name TEXT NOT NULL,
       username TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL,
-      budget INTEGER,
+      budget INTEGER DEFAULT 0,
       language STRING DEFAULT 'en',
       currency STRING DEFAULT 'usd'
     )`, (err) => {
