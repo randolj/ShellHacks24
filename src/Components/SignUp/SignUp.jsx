@@ -38,7 +38,12 @@ const SignUp = () => {
       if (response.data.token) {
         localStorage.setItem("userToken", response.data.token);
         console.log("Signup success:", response.data.message);
-        navigate("/Home");
+        navigate("/Home", {
+          state: {
+            name: formData.name,
+            budget: 0, // Default value since budget starts at 0
+          },
+        });
       } else {
         const errorMessage = "Signup failed";
         setSignupFail(errorMessage);
