@@ -81,7 +81,7 @@ router.get('/user-data', (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.id;
 
-        const sql = `SELECT name FROM users WHERE id = ?`;
+        const sql = `SELECT name, budget FROM users WHERE id = ?`;
         db.get(sql, [userId], (err, row) => {
             if (err) {
                 return res.status(500).send({ error: err.message });
@@ -89,6 +89,7 @@ router.get('/user-data', (req, res) => {
             if (row) {
                 res.json({
                     name: row.name,
+                    budget: row.budget,
                 });
             } else {
                 res.status(404).send({ message: 'User not found' });

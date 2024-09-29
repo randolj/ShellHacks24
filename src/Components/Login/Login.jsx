@@ -32,6 +32,7 @@ const Login = () => {
       navigate("/Home", {
         state: {
           name: response.data.name,
+          budget: response.data.budget,
         },
       });
     } catch (error) {

@@ -16,21 +16,28 @@ import { Gauge, gaugeClasses } from "@mui/x-charts/Gauge";
 import logo from "../Capital_One_logo.png";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Budgeting() {
   const location = useLocation();
 
   const [open, setOpen] = React.useState(false);
+  const [manageBudgetOpen, setManageBudgetOpen] = useState(false);
+
   const [Language, setLanguage] = React.useState("");
   const [Currency, setCurrency] = React.useState("");
 
   const [userName, setUserName] = useState("");
+  const [budget, setBudget] = useState("");
 
   useEffect(() => {
     // Check if state exists and if yes, update the budgetValue and expenses
     if (location.state) {
       setUserName(location.state.name);
+      setBudget(location.state.budget);
     }
+    console.log(budget);
   }, [location.state]);
 
   const handleChange = (event) => {
@@ -45,6 +52,14 @@ function Budgeting() {
     if (reason !== "backdropClick") {
       setOpen(false);
     }
+  };
+
+  const handleManageBudgetOpen = () => {
+    setManageBudgetOpen(true);
+  };
+
+  const handleManageBudgetClose = () => {
+    setManageBudgetOpen(false);
   };
 
   return (
@@ -121,8 +136,8 @@ function Budgeting() {
                 className="test"
                 width={250}
                 height={170}
-                value={690.46}
-                valueMax={1000}
+                value={0}
+                valueMax={budget}
                 startAngle={-110}
                 endAngle={110}
                 sx={{
@@ -140,16 +155,40 @@ function Budgeting() {
                   },
                   [`& .${gaugeClasses.referenceArc}`]: {},
                 }}
-                text={({ value, valueMax }) => `$${value}/${valueMax}`}
+                text={({ value, valueMax }) =>
+                  valueMax === 0 ? `$${value}/$X.XX` : `$${value}/$${valueMax}`
+                }
               />
             </div>
             <div className="ButtonSection">
-              <div className="BudgetButton">
-                <div>Manage Budget</div>
+              <div className="BudgetButton" onClick={handleManageBudgetOpen}>
+                Manage Budget
               </div>
             </div>
           </div>
         </div>
+        {/* Manage Budget Modal */}
+        <Dialog open={manageBudgetOpen} onClose={handleManageBudgetClose}>
+          <DialogTitle>
+            Manage Budget
+            <IconButton
+              aria-label="close"
+              onClick={handleManageBudgetClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent>
+            <p>Here you can manage your budget details.</p>
+            {/* Add more budget management content here */}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
