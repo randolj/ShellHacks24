@@ -36,6 +36,10 @@ function Budgeting() {
   const [budget, setBudget] = useState("");
   const [newBudget, setNewBudget] = useState(""); // Step 1: State to track new budget input
 
+  const handleChangeCurrency = (event) => {
+  setCurrency(event.target.value);
+};
+
   useEffect(() => {
     // Retrieve token from localStorage
     const token = localStorage.getItem("userToken");
